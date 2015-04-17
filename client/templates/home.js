@@ -13,5 +13,13 @@ Template.home.destroyed = function() {
 Template.home.helpers({
 	exampleHelper: function() {
 		return new Spacebars.SafeString('This text came from a helper with some <strong>HTML</strong>.');
+	},
+	dataContextHelper: function() {
+		return {
+			someText: 'set using parent helper',
+			someNested: {
+				text: 'comes from "someNested.text"'
+			}
+		};
 	}
 });

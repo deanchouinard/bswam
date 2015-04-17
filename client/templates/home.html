@@ -4,5 +4,19 @@
 Hello
 {{/markdown}}
 {{exampleHelper}}
+{{> contextExample someText="some text as an argument"}}
+{{> contextExample dataContextHelper}}
+
+<p>Using with</p>
+{{#with dataContextHelper}}
+	{{> contextExample}}
+{{/with}}
+
+<p>without the contextExample template</p>
+{{#with dataContextHelper}}
+	<p>{{someText}}</p>
+	<p>{{someNested.text}}</p>
+{{/with}}
+
 </template>
 
