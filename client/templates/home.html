@@ -3,6 +3,13 @@
 ## Welcome to my Blog
 Hello
 {{/markdown}}
+
+{{#blockHelperExample myValue=true}}
+  <span>Some Content</span>
+{{else}}
+  <span>Some Warning</span>
+{{/blockHelperExample}}
+
 {{exampleHelper}}
 {{> contextExample someText="some text as an argument"}}
 {{> contextExample dataContextHelper}}

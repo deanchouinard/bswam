@@ -5,3 +5,15 @@
   <button>Get some random number</button>
 </template>
 
+<template name="blockHelperExample">
+  <div>
+    <h1>My Block Helper</h1>
+    {{#if myValue}}
+      <p>Content goes here: {{> Template.contentBlock}}</p>
+    {{else}}
+      <p>Else content here: {{> Template.elseBlock}}</p>
+    {{/if}}
+  </div>
+</template>
+
+
