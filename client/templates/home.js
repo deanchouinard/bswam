@@ -24,19 +24,8 @@ Template.home.helpers({
 		};
 	},
   postsList: function() {
-    return [
-      {
-        title: 'Second entry',
-        description: 'blah blah blah',
-        author: 'Joe ttest',
-        timeCreated: moment().subtract(3, 'days').unix()
-      },
-      {
-        title: 'First entry',
-        description: 'more blah blah',
-        author: 'Jane test',
-        timeCreated: moment().subtract(7, 'days').unix()
+    return Posts.find({}, {sort: {timeCreated: -1}});
+    
       }
-    ]
   }
-});
+);
