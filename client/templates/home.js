@@ -29,3 +29,11 @@ Template.home.helpers({
       }
   }
 );
+
+Template.home.events({
+  'click button.lazyload': function(e, template){
+    var currentlimit = Session.get('lazyloadLimit');
+    Session.set('lazyloadLimit', currentlimit + 2);
+  }
+});
+

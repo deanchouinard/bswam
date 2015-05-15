@@ -15,3 +15,17 @@ Meteor.publish('specificfields-posts', function () {
   });
 });
 
+Meteor.publish('lazyload-posts', function (limit) {
+  return Posts.find({}, {
+    limit: limit,
+    fields: {
+      title: 1,
+      slug: 1,
+      timeCreated: 1,
+      description: 1,
+      author: 1
+    },
+    sort: {timeCreated: -1}
+  });
+});
+
