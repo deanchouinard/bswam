@@ -2,7 +2,11 @@
 {{#markdown}}
 ## Welcome to my Blog
 
-<h2>This comes from our Session: {{sessionExample}}</h2>
+<!-- <h2>This comes from our Session: {{sessionExample}}</h2> --!>
+
+{{#if currentUser.roles.admin}}
+  <a href="/create-post" class="createNewPost">Create new post</a>
+{{/if}}
 
 {{#each postsList}}
   {{> postInList}}

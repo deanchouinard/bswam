@@ -1,4 +1,9 @@
+Accounts.config({
+  forbidClientAccountCreation: true
+});
+
 if(Meteor.isClient) {
+  Meteor.subscribe("userRoles");
 
 //  Tracker.autorun(function(c) {
 //    var example = Session.get('mySessionExample');
