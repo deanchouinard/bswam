@@ -4,7 +4,17 @@ if (Meteor.isClient) {
 
 Router.configure({
   layoutTemplate: 'layout',
-  notFoundTemplate: 'notFound'
+  notFoundTemplate: 'notFound',
+  loadingTemplate: 'loading',
+
+  onAfterAction: function() {
+    var data = Posts.findOne({slug: this.params.slug});
+
+    if (_.isObject(data) && !_.isArray(data))
+      document.title = 'My Meteor Blog - '+  data.title;
+    else
+      document.title = 'My Meteor Blog - '+ this.route.getName();
+  }
 });
 
 Router.map(function() {
@@ -18,6 +28,17 @@ Router.map(function() {
   this.route('About', {
     path: '/about',
     template: 'about'
+  });
+  this.route('Post', {
+    path: '/posts/:slug',
+    template: 'post',
+
+    waitOn: function() {
+      return Meteor.subscribe('single-post', this.params.slug);
+    },
+    data: function() {
+      return Posts.findOne({slug: this.params.slug});
+    }
   });
 });
 
