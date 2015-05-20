@@ -17,6 +17,15 @@ Router.configure({
   }
 });
 
+PostController = RouteController.extend({
+  waitOn: function() {
+    return Meteor.subscribe('single-post', this.params.slug);
+  },
+  data: function() {
+    return Posts.findOne({slug: this.params.slug});
+  }
+});
+
 Router.map(function() {
   this.route('Home', {
     path: '/',
@@ -32,13 +41,29 @@ Router.map(function() {
   this.route('Post', {
     path: '/posts/:slug',
     template: 'post',
-
-    waitOn: function() {
-      return Meteor.subscribe('single-post', this.params.slug);
-    },
-    data: function() {
-      return Posts.findOne({slug: this.params.slug});
-    }
+    controller: 'PostController'
   });
+  this.route('Create Post', {
+    path: 'create-post',
+    template: 'editPost'
+  });
+  this.route('Edit Post', {
+    path: '/edit-post/:slug',
+    template: 'edit-post',
+    controller: 'PostController'
+  });
+
 });
+
+var requiresLogin = function() {
+  if (!Meteor.user() ||
+      !Meteor.user().roles ||
+      !Meteor.user().roles.admin) {
+        this.render('notFound');
+  } else {
+    this.next();
+  }
+};
+
+Router.onBeforeAction(requiresLogin, {only: ['Create Post', 'Edit Post']});
 
