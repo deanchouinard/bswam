@@ -28,18 +28,17 @@ Template.editPost.events({
     } else {
     // Save
       var slug = _.slugify(form.title.value);
-        Meteor.call('insertPost', {
-          title: form.title.value,
+      Meteor.call('insertPost', {
+        title: form.title.value,
         slug: slug,
         description: form.description.value,
         text: form.text.value,
-      }, function(error) {
+      }, function(error, slug) {
         Session.set('saveButton', 'Save Post');
         if(error) {
           alert(error.reason);
         }
         Router.go('Post', {slug: slug});
-        
       }
       );
       console.log('Post saved');
