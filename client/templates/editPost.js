@@ -1,3 +1,10 @@
+Session.setDefault('saveButton', 'Save Post');
+Template.editPost.helpers({
+  saveButtonText: function() {
+    return Session.get('saveButton');
+  }
+});
+
 Template.editPost.events({
   'submit form': function(e, template){
     e.preventDefault();
@@ -21,20 +28,18 @@ Template.editPost.events({
     } else {
     // Save
       var slug = _.slugify(form.title.value);
-      Posts.insert({
-        title: form.title.value,
+        Meteor.call('insertPost', {
+          title: form.title.value,
         slug: slug,
         description: form.description.value,
         text: form.text.value,
-        timeCreated: moment().unix(),
-        author: user.profile.name,
-        owner: user._id
       }, function(error) {
+        Session.set('saveButton', 'Save Post');
         if(error) {
           alert(error.reason);
-        } else {
-          Router.go('Post', {slug: slug});
         }
+        Router.go('Post', {slug: slug});
+        
       }
       );
       console.log('Post saved');
